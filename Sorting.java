@@ -10,7 +10,7 @@ public class Sorting
     
     public void testMethod() {
         int[] test = {0, 8, 4, 5, 6};
-        selectionSort(test);
+        mergeSort(test);
         System.out.println(Arrays.toString(test));
     }
     
@@ -46,5 +46,52 @@ public class Sorting
     
     public void insertionSort(int[] input) {
         
+    }
+    
+    public void mergeSort(int[] input) {
+        mergeSort(0, input.length - 1, input);
+    }
+    
+    public void mergeSort(int beg, int end, int[] input) {
+        
+        if (end == beg) {
+            return;
+        }
+        else {
+            int mid = (end + beg) / 2;
+            mergeSort(beg, mid, input);
+            mergeSort(mid + 1, end, input);
+            merge(beg, mid, end, input);
+            //merge(beg, (end - beg) / 2, end, input);
+        }
+    }
+    
+    public void merge(int beg, int mid, int end, int input[]) {
+        int[] temp = new int[input.length];
+        int firstPos = beg;
+        int secondPos = mid + 1;
+        int insertPos = beg;
+        while (firstPos < mid + 1 || secondPos < end + 1) {
+            if (input[firstPos] < input[secondPos]) {
+                temp[insertPos] = input[firstPos];
+                insertPos++;
+                firstPos++;
+            } else {
+                temp[insertPos] = input[secondPos];
+                insertPos++;
+                secondPos++;
+            }
+        }
+        while (firstPos < mid + 1) {
+            temp[insertPos] = input[firstPos];
+            insertPos++;
+            firstPos++;
+        }
+        while (secondPos < end + 1) {
+            temp[insertPos] = input[secondPos];
+            insertPos++;
+            secondPos++;
+        }
+        input = temp;
     }
 }
