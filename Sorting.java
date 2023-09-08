@@ -94,10 +94,10 @@ public class Sorting
     }
     
     public static void merge(int beg, int mid, int end, int input[]) {
-        int[] temp = new int[input.length];
+        int[] temp = new int[(end - beg) + 1];
         int firstPos = beg;
         int secondPos = mid + 1;
-        int insertPos = beg;
+        int insertPos = 0;
         compsM++;
         while (firstPos <= mid && secondPos <= end) {
             compsM++;
@@ -130,9 +130,11 @@ public class Sorting
             insertPos++;
             secondPos++;
         }
+        int tempIndex = 0;
         for (int i = beg; i <= end; i++) {
-            input[i] = temp[i];
+            input[i] = temp[tempIndex];
             swapsM++;
+            tempIndex++;
         }
     }
 }
