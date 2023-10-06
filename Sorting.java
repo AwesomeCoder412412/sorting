@@ -23,6 +23,7 @@ public class Sorting
     public static void bubbleSort(int[] input) {
         long comps = 0;
         long swaps = 0;
+        boolean sorted = true;
         
         for (int i = 0; i < input.length - 1; i++) {
             for (int j = 0; j < input.length - 1; j++) {
@@ -33,7 +34,11 @@ public class Sorting
                     input[j] = input[j+1];
                     input[j+1] = temp;
                     swaps++;
+                    sorted = false;
                 }
+            }
+            if (sorted) {
+                return;
             }
         }
         System.out.print(", " + comps + ", " + swaps);
@@ -52,10 +57,12 @@ public class Sorting
                     minIndex = j;
                 }
             }
-            int temp = input[minIndex];
-            input[minIndex] = input[i];
-            input[i] = temp;
-            swaps++;
+            if (i != minIndex) {
+                int temp = input[minIndex];
+                input[minIndex] = input[i];
+                input[i] = temp;
+                swaps++;
+            }
         }
         System.out.print(", " + comps + ", " + swaps);
     }
@@ -89,6 +96,13 @@ public class Sorting
     
     // Sorts the given array in ascending order using merge sort
     public static void mergeSort(int beg, int end, int[] input) {
+        if (end - beg == 2) { // base case
+            if (input[beg] > input[end]) {
+                int temp = input[end];
+                input[end] = input[beg];
+                input[beg] = temp;
+            }
+        }
         if (beg == end) { // base case
             return;
         } else {          // recursive case
