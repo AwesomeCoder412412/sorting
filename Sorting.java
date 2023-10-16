@@ -9,13 +9,14 @@ public class Sorting
 {
     
     public static long compsM = 0;
-    public static long swapsM = 0;
+    public static long assignsM = 0;
     
     // Tests whatever sort needs to be tested at the time
     public static void testMethod() {
-        int[] test = {9, 8, 4, 5, 6};
+        int[] test = {1,2};
         
-        insertionSort(test);
+        mergeSort(test);
+        System.out.println();
         System.out.println(Arrays.toString(test));
     }
     
@@ -91,19 +92,22 @@ public class Sorting
     // External-facing method for mergeSort()
     public static void mergeSort(int[] input) {
         mergeSort(0, input.length - 1, input);
-        System.out.print(", " + compsM + ", " + (swapsM / 3));
+        System.out.print(", " + compsM + ", " + (assignsM / 3));
     }
     
     // Sorts the given array in ascending order using merge sort
     public static void mergeSort(int beg, int end, int[] input) {
-        if (end - beg == 2) { // base case
+        compsM++;
+        if (end - beg == 1) { // base case
+            compsM++;
             if (input[beg] > input[end]) {
+                assignsM += 3;
                 int temp = input[end];
                 input[end] = input[beg];
                 input[beg] = temp;
             }
-        }
-        if (beg == end) { // base case
+        } else if (beg == end) { // base case
+            compsM++;
             return;
         } else {          // recursive case
             int mid = (beg + end) / 2;
@@ -129,12 +133,12 @@ public class Sorting
             
             if (input[leftPos] < input[rightPos]) {
                 temp[insertPos] = input[leftPos];
-                swapsM++;
+                assignsM++;
                 insertPos++;
                 leftPos++;
             } else {
                 temp[insertPos] = input[rightPos];
-                swapsM++;
+                assignsM++;
                 insertPos++;
                 rightPos++;
             }
@@ -144,7 +148,7 @@ public class Sorting
         // Finishes the 1st partition if the 2nd partition finished first.
         while (leftPos <= mid) {
             compsM++;
-            swapsM++;
+            assignsM++;
             temp[insertPos] = input[leftPos];
             insertPos++;
             leftPos++;
@@ -154,7 +158,7 @@ public class Sorting
         // Finishes the 2nd partition if the 1st partition finished first.
         while (rightPos <= end) {
             compsM++;
-            swapsM++;
+            assignsM++;
             temp[insertPos] = input[rightPos];
             insertPos++;
             rightPos++;
@@ -162,7 +166,7 @@ public class Sorting
         
         for (int i = 0; i < temp.length; i++) {
             input[i + beg] = temp[i];
-            swapsM++;
+            assignsM++;
         }
     }
 }
