@@ -27,6 +27,7 @@ public class Sorting
         boolean sorted = true;
         
         for (int i = 0; i < input.length - 1; i++) {
+            sorted = true;
             for (int j = 0; j < input.length - 1; j++) {
                 comps++;
                 
